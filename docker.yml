@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: Install pip
+      package: name=python-pip state=present
+
+    - name: install docker-py
+      pip: name=docker-py
+
+    - name: Package Installer For Docker
+      package:
+        name: docker
+        state: present
+
+    - name: Start service docker
+      service:
+        name: docker
+        state: started
+            
+    - name: Build Docker image
+      shell: docker build -t go-webapp .
+    
+    - name: Run docker container
+      shell: docker run -d -p 8080:8080  go-webapp
+
