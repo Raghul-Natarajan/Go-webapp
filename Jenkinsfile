@@ -3,7 +3,7 @@ pipeline{
    stages{
       stage("Build web app"){
           agent { label 'slave1' }
-          step{
+          steps{
           sh 'ansible-playbook docker.yml'
           }
        }
